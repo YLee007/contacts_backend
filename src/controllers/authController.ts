@@ -20,9 +20,10 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       },
     });
 
-    res.status(201).json({ code: 201, message: '用户注册成功', data: { id: newUser.id, email: newUser.email, name: newUser.name } });
+    return res.status(201).json({ code: 201, message: '用户注册成功', data: { id: newUser.id, email: newUser.email, name: newUser.name } });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 
@@ -45,13 +46,14 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     // 实际应用中会生成 JWT
     const sessionToken = user.id; // 使用用户ID作为简单的会话标识符
 
-    res.json({ code: 200, message: '登录成功', data: { id: user.id, email: user.email, name: user.name, sessionToken } });
+    return res.json({ code: 200, message: '登录成功', data: { id: user.id, email: user.email, name: user.name, sessionToken } });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 
-export const logout = async (req: Request, res: Response, next: NextFunction) => {
+export const logout = async (_req: Request, res: Response, _next: NextFunction) => {
   // 简化：前端会清除本地存储的 sessionToken，后端无需特殊处理
-  res.json({ code: 200, message: '退出登录成功', data: null });
+  return res.json({ code: 200, message: '退出登录成功', data: null });
 };

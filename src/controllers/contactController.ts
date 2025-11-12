@@ -85,9 +85,10 @@ export const getContactById = async (req: Request, res: Response, next: NextFunc
       return res.status(404).json({ code: 404, message: '联系人未找到', data: null });
     }
 
-    res.json({ code: 200, message: '联系人获取成功', data: contact });
+    return res.json({ code: 200, message: '联系人获取成功', data: contact });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 
@@ -108,9 +109,10 @@ export const createContact = async (req: Request, res: Response, next: NextFunct
       },
     });
 
-    res.status(201).json({ code: 201, message: '联系人创建成功', data: newContact });
+    return res.status(201).json({ code: 201, message: '联系人创建成功', data: newContact });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 
@@ -138,9 +140,10 @@ export const updateContact = async (req: Request, res: Response, next: NextFunct
       },
     });
 
-    res.json({ code: 200, message: '联系人更新成功', data: updatedContact });
+    return res.json({ code: 200, message: '联系人更新成功', data: updatedContact });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 
@@ -156,9 +159,10 @@ export const deleteContact = async (req: Request, res: Response, next: NextFunct
 
     await prisma.contact.delete({ where: { id } });
 
-    res.status(204).json({ code: 204, message: '联系人删除成功', data: null });
+    return res.status(204).json({ code: 204, message: '联系人删除成功', data: null });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 // 切换联系人收藏状态
@@ -178,9 +182,10 @@ export const toggleFavoriteContact = async (req: Request, res: Response, next: N
       },
     });
 
-    res.json({ code: 200, message: '联系人收藏状态更新成功', data: updatedContact });
+    return res.json({ code: 200, message: '联系人收藏状态更新成功', data: updatedContact });
   } catch (error) {
     next(error);
+    return; // 确保在 catch 块中也有明确的返回
   }
 };
 

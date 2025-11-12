@@ -3,7 +3,7 @@ import { createContact, getContacts, getContactById, updateContact, deleteContac
 import { validate } from '../middleware/validation';
 import { createContactSchema, updateContactSchema, getContactByIdSchema, deleteContactSchema, getContactsSchema } from '../schemas/contactSchemas';
 
-const router = Router();
+const router: Router = Router();
 
 router.post('/', validate(createContactSchema), createContact);
 router.get('/', validate(getContactsSchema), getContacts);

@@ -10,6 +10,7 @@ export const validate = (schema: AnyZodObject) =>
         params: req.params,
       });
       next();
+      return; // 确保在成功调用 next() 后函数明确返回
     } catch (error: any) {
       if (error instanceof ZodError) {
         return res.status(400).json({
@@ -22,5 +23,6 @@ export const validate = (schema: AnyZodObject) =>
         });
       }
       next(error);
+      return; // 确保在 catch 块中也有明确的返回
     }
   };
